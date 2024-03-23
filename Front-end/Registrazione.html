@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login e Registrazione</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-QHnI07Y1jftJjjx2Y9L3QbR/wubg4Zsp3rh0jgw8Z3C5aqNubm/nTnLX0oYqhpEyMvOLuEXF3/qf9HjWtrDgZA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <form id="login-form" class="login-form">
+        <h2>Login</h2>
+        <input type="text" placeholder="Username" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Accedi</button>
+      </form>
+      <form id="register-form" class="register-form">
+        <h2>Registrazione</h2>
+        <input type="text" placeholder="Nome Utente" required>
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit">Registrati</button>
+        <div class="social-login">
+          <p>Oppure registrati tramite:</p>
+          <a href="#" class="social-btn google"><i class="fab fa-google"></i> Google</a>
+          <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+          <a href="#" class="social-btn linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
