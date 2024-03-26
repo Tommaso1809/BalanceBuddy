@@ -1,6 +1,7 @@
 <?php
      include 'connectDB.php';
 
+     session_start();
 
     $nome=$_POST['nome'];
     $cognome=$_POST['cognome'];
@@ -25,6 +26,8 @@
 		
     }
     else if($row==0){
+
+        $_SESSION['variabile di sessione']=$email;
 
         $sql="INSERT INTO utente (email,nome,cognome,password)
               VALUES('$email','$nome','$cognome','$passwordMD5')";

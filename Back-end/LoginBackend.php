@@ -1,6 +1,7 @@
 <?php
 
     include 'connectDB.php';
+    session_start();
 
     $email= $_POST['email'];
     $password=$_POST['password'];
@@ -13,11 +14,15 @@
           WHERE email = '$email' AND password='$passwordMD5'";
 
     $result=mysqli_query($connect,$sql);
+    $_SESSION['sessione']=
 
     $row=mysqli_num_rows( $result );
 
     if($row==1){
+
+      $_SESSION['variabile di sessione']=$email;
         echo "Utente Trovato";
+        header("Location:..\Front-end\home.php");
     }
     else{
    
