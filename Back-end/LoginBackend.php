@@ -14,7 +14,7 @@
           WHERE email = '$email' AND password='$passwordMD5'";
 
     $result=mysqli_query($connect,$sql);
-    $_SESSION['sessione']=
+ 
 
     $row=mysqli_num_rows( $result );
 
