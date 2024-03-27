@@ -58,6 +58,10 @@
               name="product-amount"
               placeholder="Importo del prodotto"
             />
+            <select id="type_amount" name="type_amount">
+              <option value="entrata">entrata</option>
+              <option value="uscita">uscita</option>
+            </select><br>
             <button type="submit" class="submit" id="check-amount">Check Amount</button>
             </form>
           </div>
@@ -95,11 +99,51 @@
           </div>
           <div>
             <p>Spese</p>
-            <span id="expenditure-value">0</span>
+            <?php
+                $email=$_SESSION['variabile di sessione'];
+
+                $sql="SELECT portafoglio.uscite
+                FROM portafoglio
+                JOIN possiede
+                ON possiede.portafoglio=portafoglio.IDportafoglio
+                JOIN utente
+                ON possiede.utente=utente.email
+                WHERE utente.email='$email'";
+
+                $result=mysqli_query($connect,$sql);
+
+                $row=mysqli_fetch_array($result);
+
+                $_SESSION['uscite_sessione']=$row['uscite'];
+
+                echo '<span id="expenditure-value">'.$row['uscite'].'</span>';
+
+            ?>
+            
           </div>
           <div>
-            <p>Bilancio</p>
-            <span id="balance-amount">0</span>
+            <p>Entrate</p>
+            <?php
+                $email=$_SESSION['variabile di sessione'];
+
+                $sql="SELECT portafoglio.entrate
+                FROM portafoglio
+                JOIN possiede
+                ON possiede.portafoglio=portafoglio.IDportafoglio
+                JOIN utente
+                ON possiede.utente=utente.email
+                WHERE utente.email='$email'";
+
+                $result=mysqli_query($connect,$sql);
+
+                $row=mysqli_fetch_array($result);
+
+                $_SESSION['entrate_sessione']=$row['entrate'];
+
+                echo '<span id="id="balance-amount">'.$row['entrate'].'</span>';
+
+            ?>
+           
           </div>
         </div>
       </div>
