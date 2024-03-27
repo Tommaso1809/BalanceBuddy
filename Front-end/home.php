@@ -72,6 +72,7 @@
                 session_start();
 
                 $email=$_SESSION['variabile di sessione'];
+                
 
                 $sql="SELECT portafoglio.budget
                 FROM portafoglio
@@ -84,6 +85,8 @@
                 $result=mysqli_query($connect,$sql);
 
                 $row=mysqli_fetch_array($result);
+
+                $_SESSION['budget_sessione']=$row['budget'];
 
                 echo '<span id="amount">'.$row['budget'].'</span>';
 
@@ -103,7 +106,47 @@
       <!-- List -->
       <div class="list">
         <h3>Lista Spese</h3>
-        <div class="list-container" id="list"></div>
+        <div class="list-container" id="list">
+
+        <?php
+           
+           $email=$_SESSION['variabile di sessione'];
+
+            $sql="SELECT movimento.categoria,movimento.importo,movimento.dataInserimento
+            FROM movimento
+            JOIN ha
+            ON ha.movimento=movimento.IDmovimento
+            JOIN portafoglio
+            ON portafoglio.IDportafoglio=ha.portafoglio
+            JOIN possiede
+            ON possiede.portafoglio=portafoglio.IDportafoglio
+            JOIN utente
+            ON utente.email=possiede.utente
+            WHERE utente.email='$email'";
+
+            $result=mysqli_query($connect,$sql);
+
+            $budget=$_SESSION['budget_sessione'];
+            $stringa='Budget Superato';
+
+            while($row=mysqli_fetch_array($result)){
+
+              if($row['importo']>$budget){
+                echo "<script language=\"JavaScript\">\n";
+                echo "alert(\"" . $stringa . "\");\n";
+                echo "</script>";
+              }
+
+              echo '<center>';
+              echo '<p>'.$row['categoria'].'  '.$row['importo'].'€ '.$row['dataInserimento'].'</p>';
+              echo '</center>';
+            }
+
+            
+
+
+        ?>
+        </div>
       </div>
     </div>
     <!-- Script -->

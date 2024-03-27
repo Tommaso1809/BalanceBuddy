@@ -4,6 +4,13 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
+
+  #list p{
+    word-spacing: 10em;
+    text-align: center;
+  }
+  
+
   body {
     background-color: #f7f9fd;
   }
