@@ -35,7 +35,19 @@
         $result=mysqli_query($connect,$sql);
 
         if($result){
-            //header("Location: homepage.html");
+
+            $sql="INSERT INTO portafoglio(entrate,uscite,budget)
+                    VALUES(0,0,0)";
+
+            $result=mysqli_query($connect,$sql);
+            $latest_id =  mysqli_insert_id($connect);
+
+            $sql="INSERT INTO possiede(utente,portafoglio)
+                    VALUES('$email',$latest_id)";
+            
+            $result=mysqli_query($connect,$sql);
+
+            header("Location:..\Front-end\home.php");
         }
     }
     else{

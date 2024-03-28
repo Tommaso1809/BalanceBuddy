@@ -5,12 +5,6 @@
     font-family: "Poppins", sans-serif;
   }
 
-  #list p{
-    word-spacing: 10em;
-    text-align: center;
-  }
-  
-
   body {
     background-color: #f7f9fd;
   }
@@ -122,6 +116,20 @@
   }
   .product-title {
     margin-bottom: 1em;
+  }
+
+  .chart-container {
+    width: 50%;
+    padding-bottom: 50%;
+    position: relative;
+  }
+  
+  .chart-container > canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
   }
   .hide {
     display: none;

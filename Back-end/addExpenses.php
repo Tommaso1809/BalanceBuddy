@@ -47,7 +47,13 @@
             echo 'ok';
         }
 
-        if($_POST['type_amount'] =='entrata'){
+        $budget=$_SESSION['budget_sessione'];
+        
+
+        if(($_POST['type_amount'] =='entrata')){
+
+            
+
 
             $entrata=$_SESSION['entrate_sessione'];
 
@@ -66,6 +72,8 @@
             $result=mysqli_query($connect,$sql);
         }
         else if($_POST['type_amount'] =='uscita'){
+
+                    
             $uscita=$_SESSION['uscite_sessione'];
 
             $totale=$uscita+$importo;

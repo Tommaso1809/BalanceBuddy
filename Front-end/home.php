@@ -8,11 +8,14 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+    <link rel="icon" type="image/x-icon" href="favicon.png">
     <!-- Stylesheet -->
     <link rel="stylesheet" href="styleHome.css" />
   </head>
@@ -50,13 +53,15 @@
               class="product-title"
               id="product-title"
               name="product-title"
-              placeholder="Titolo del prodotto"
+              placeholder="Titolo movimento"
+              step="any"
             />
             <input
               type="number"
               id="product-amount"
               name="product-amount"
-              placeholder="Importo del prodotto"
+              placeholder="Importo"
+              step="any"
             />
             <select id="type_amount" name="type_amount">
               <option value="entrata">entrata</option>
@@ -149,14 +154,14 @@
       </div>
       <!-- List -->
       <div class="list">
-        <h3>Lista Spese</h3>
+        <h3>Lista Movimenti</h3>
         <div class="list-container" id="list">
 
         <?php
            
            $email=$_SESSION['variabile di sessione'];
 
-            $sql="SELECT movimento.categoria,movimento.importo,movimento.dataInserimento
+            $sql="SELECT movimento.categoria,movimento.importo,movimento.dataInserimento,movimento.tipologia,movimento.IDmovimento
             FROM movimento
             JOIN ha
             ON ha.movimento=movimento.IDmovimento
@@ -173,20 +178,32 @@
             $budget=$_SESSION['budget_sessione'];
             $stringa='Budget Superato';
 
+            echo '<table style="width:100%;border-collapse:collapse;">';
+            echo '<tr>';
+              echo '<th>Titolo</th>';
+              echo '<th>Importo</th>';
+              echo '<th>Data</th>';
+              echo '<th>Tipologia</th>';
+              echo '<th></th>';
+            echo '</tr>';  
+              
             while($row=mysqli_fetch_array($result)){
 
-              if($row['importo']>$budget){
-                echo "<script language=\"JavaScript\">\n";
-                echo "alert(\"" . $stringa . "\");\n";
-                echo "</script>";
-              }
-
-              echo '<center>';
-              echo '<p>'.$row['categoria'].'  '.$row['importo'].'€ '.$row['dataInserimento'].'</p>';
-              echo '</center>';
+            
+              echo '<tr>';
+              echo '<td style="text-align:center;">'.$row['categoria'].'</td>';
+              echo '<td style="text-align:center;">'.$row['importo'].'€ '.'</td>';
+              echo '<td style="text-align:center;">'.$row['dataInserimento'].'</td>';
+              echo '<td style="text-align:center;">'.$row['tipologia'].'</td>';
+              echo '<td>
+                <form action="..\Back-end\delete.php" method="POST">
+                    <button style="background-color:red;border:0px;color:white;border-radius:5px;padding:2px;" type="submit" id="dBTN" name="dBTN" value="'.$row['IDmovimento'].'">Rimuovi</button>
+                 </form>    
+               </td>';
+              echo '</tr>';
             }
 
-            
+            echo '</table>';
 
 
         ?>
@@ -195,5 +212,72 @@
     </div>
     <!-- Script -->
     <script src="script.js"></script>
+      
+    <canvas id="pie-chart" width="15px" height="15px"></canvas>
+    <script>
+  // Declare the data variables as global variables
+  var entrate, uscite, budget;
+
+  // Get the context of the canvas element
+  var ctx = document.getElementById('pie-chart').getContext('2d');
+
+  // Get the user's financial information using PHP
+  <?php
+
+      $email=$_SESSION['variabile di sessione'];
+
+      $sql="SELECT portafoglio.entrate,portafoglio.uscite,portafoglio.budget
+            FROM portafoglio
+            JOIN possiede
+            ON possiede.portafoglio=portafoglio.IDportafoglio
+            JOIN utente
+            ON utente.email=possiede.utente
+            WHERE utente.email='$email'";
+
+      $result=mysqli_query($connect,$sql);
+
+      $row=mysqli_fetch_array($result);
+
+      // Set the global variables
+      echo 'entrate='.$row['entrate'].';';
+      echo 'uscite='.$row['uscite'].';';
+      echo 'budget='.$row['budget'].';';
+  ?>
+
+  // Define the data labels and values for the pie chart
+  var labels = ['Entrate', 'Uscite', 'Budget'];
+  var data = [entrate,uscite,budget];
+
+  // Create a new pie chart with the data
+  var chart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'My Pie Chart',
+        data: data,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+  
   </body>
 </html>
