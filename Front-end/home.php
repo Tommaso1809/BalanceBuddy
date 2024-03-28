@@ -213,7 +213,7 @@
     <!-- Script -->
     <script src="script.js"></script>
       
-    <canvas id="pie-chart" width="15px" height="15px"></canvas>
+    <canvas id="pie-chart" class="chart-resize"></canvas>
     <script>
   // Declare the data variables as global variables
   var entrate, uscite, budget;
