@@ -35,6 +35,7 @@
                 id="total-amount"
                 name="total-amount"
                 placeholder="Budget Totale"
+				step="any"
                 />
                 <button type="submit" class="submit" id="total-amount-button">Set Budget</button>
             </form>
@@ -55,6 +56,7 @@
               name="product-title"
               placeholder="Titolo movimento"
               step="any"
+			  required
             />
             <input
               type="number"
@@ -62,19 +64,20 @@
               name="product-amount"
               placeholder="Importo"
               step="any"
+			  required
             />
             <select id="type_amount" name="type_amount">
               <option value="entrata">entrata</option>
               <option value="uscita">uscita</option>
             </select><br>
-            <button type="submit" class="submit" id="check-amount">Check Amount</button>
+            <button type="submit" class="submit" id="check-amount">Calcolo Spesa</button>
             </form>
           </div>
         </div>
         <!-- Output -->
         <div class="output-container flex-space">
           <div>
-            <p>Total Budget</p>
+            <p>Budget</p>
             <?php
 
                 include "../Back-end/connectDB.php";
@@ -213,7 +216,8 @@
     <!-- Script -->
     <script src="script.js"></script>
       
-    <canvas id="pie-chart" class="chart-resize"></canvas>
+   <canvas id="pie-chart" class="chart-resize"></canvas>
+  
     <script>
   // Declare the data variables as global variables
   var entrate, uscite, budget;

@@ -72,5 +72,5 @@
         
         header('Location:..\Front-end\home.php');
     
-
+		 mysqli_close($connect);
 ?>

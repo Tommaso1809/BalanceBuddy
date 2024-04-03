@@ -15,7 +15,10 @@
           FROM utente
           WHERE email = '$email'";
 
-    $result=mysqli_query($connect,$sql);
+    $stmt = mysqli_prepare($connect, $sql);
+    mysqli_stmt_bind_param($stmt, "ss", $email, $passwordMD5);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
 
     $row=mysqli_num_rows( $result );
 
@@ -50,12 +53,8 @@
             header("Location:..\Front-end\home.php");
         }
     }
-    else{
-   
-		
-		
-
-    }
-
+    
+	mysqli_stmt_close($stmt);
+    mysqli_close($connect);
 
 ?>

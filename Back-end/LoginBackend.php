@@ -9,28 +9,24 @@
 
     $passwordMD5=md5($password);
 
-    $sql="SELECT email, password 
-          FROM utente
-          WHERE email = '$email' AND password='$passwordMD5'";
+    $sql = "SELECT email, password FROM utente WHERE email = ? AND password = ?";
+    $stmt = mysqli_prepare($connect, $sql);
+    mysqli_stmt_bind_param($stmt, "ss", $email, $passwordMD5);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
 
-    $result=mysqli_query($connect,$sql);
- 
+    $row = mysqli_stmt_num_rows($stmt);
 
-    $row=mysqli_num_rows( $result );
-
-    if($row==1){
-
-      $_SESSION['variabile di sessione']=$email;
+    if ($row == 1) {
+        $_SESSION['variabile di sessione'] = $email;
         echo "Utente Trovato";
         header("Location:..\Front-end\home.php");
+    } else {
+        echo "<script language=\"JavaScript\">\n";
+        echo "alert(\"" . $stringa . "\");\n";
+        echo "</script>";
     }
-    else{
-   
-		echo "<script language=\"JavaScript\">\n";
-		echo "alert(\"" . $stringa . "\");\n";
-		echo "</script>";
-		
-		
 
-    }
+    mysqli_stmt_close($stmt);
+    mysqli_close($connect);
 ?>

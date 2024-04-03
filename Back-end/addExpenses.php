@@ -20,10 +20,7 @@
 
 
     if (mysqli_query($connect, $sql)) {
-
-        
-        
-
+		
         $latest_id =  mysqli_insert_id($connect);
         
         $sql="SELECT portafoglio.IDportafoglio
@@ -48,12 +45,9 @@
         }
 
         $budget=$_SESSION['budget_sessione'];
-        
-
+       
+	   
         if(($_POST['type_amount'] =='entrata')){
-
-            
-
 
             $entrata=$_SESSION['entrate_sessione'];
 
@@ -96,12 +90,7 @@
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-
-   
-
-        header("Location:../Front-end/home.php");
-    
-
-    
+    header("Location:../Front-end/home.php");
+	mysqli_close($connect);
 
 ?>
