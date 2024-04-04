@@ -213,75 +213,142 @@
         </div>
       </div>
     </div>
-    <!-- Script -->
-    <script src="script.js"></script>
+        <!-- Script -->
+        <script src="script.js"></script>
+          
+      <canvas id="pie-chart" class="chart-resize"></canvas>
       
-   <canvas id="pie-chart" class="chart-resize"></canvas>
-  
-    <script>
-  // Declare the data variables as global variables
-  var entrate, uscite, budget;
+        <script>
+      // Declare the data variables as global variables
+      var entrate, uscite, budget;
 
-  // Get the context of the canvas element
-  var ctx = document.getElementById('pie-chart').getContext('2d');
+      // Get the context of the canvas element
+      var ctx = document.getElementById('pie-chart').getContext('2d');
 
-  // Get the user's financial information using PHP
-  <?php
+      // Get the user's financial information using PHP
+      <?php
 
-      $email=$_SESSION['variabile di sessione'];
+          $email=$_SESSION['variabile di sessione'];
 
-      $sql="SELECT portafoglio.entrate,portafoglio.uscite,portafoglio.budget
-            FROM portafoglio
-            JOIN possiede
-            ON possiede.portafoglio=portafoglio.IDportafoglio
-            JOIN utente
-            ON utente.email=possiede.utente
-            WHERE utente.email='$email'";
+          $sql="SELECT portafoglio.entrate,portafoglio.budget
+                FROM portafoglio
+                JOIN possiede
+                ON possiede.portafoglio=portafoglio.IDportafoglio
+                JOIN utente
+                ON utente.email=possiede.utente
+                WHERE utente.email='$email'";
 
-      $result=mysqli_query($connect,$sql);
+          $result=mysqli_query($connect,$sql);
 
-      $row=mysqli_fetch_array($result);
+          $row=mysqli_fetch_array($result);
 
-      // Set the global variables
-      echo 'entrate='.$row['entrate'].';';
-      echo 'uscite='.$row['uscite'].';';
-      echo 'budget='.$row['budget'].';';
-  ?>
+          // Set the global variables
+          echo 'entrate='.$row['entrate'].';';
 
-  // Define the data labels and values for the pie chart
-  var labels = ['Entrate', 'Uscite', 'Budget'];
-  var data = [entrate,uscite,budget];
+          echo 'budget='.$row['budget'].';';
+      ?>
 
-  // Create a new pie chart with the data
-  var chart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: labels,
-      datasets: [{
-        label: 'My Pie Chart',
-        data: data,
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)'
-        ],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
+      // Define the data labels and values for the pie chart
+      var labels = ['Entrate', 'Budget'];
+      var data = [entrate,budget];
+
+      // Create a new pie chart with the data
+      var chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Grafico Entrate',
+            data: data,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+    <br>
+    <canvas id="pie-chart_1" class="chart-resize"></canvas>
+      
+      <script>
+    // Declare the data variables as global variables
+    var entrate, uscite, budget;
+
+    // Get the context of the canvas element
+    var ctx = document.getElementById('pie-chart_1').getContext('2d');
+
+    // Get the user's financial information using PHP
+    <?php
+
+        $email=$_SESSION['variabile di sessione'];
+
+        $sql="SELECT portafoglio.uscite,portafoglio.budget
+              FROM portafoglio
+              JOIN possiede
+              ON possiede.portafoglio=portafoglio.IDportafoglio
+              JOIN utente
+              ON utente.email=possiede.utente
+              WHERE utente.email='$email'";
+
+        $result=mysqli_query($connect,$sql);
+
+        $row=mysqli_fetch_array($result);
+
+        // Set the global variables
+        echo 'uscite='.$row['uscite'].';';
+        echo 'budget='.$row['budget'].';';
+    ?>
+
+    // Define the data labels and values for the pie chart
+    var labels = ['Uscite', 'Budget'];
+    var data = [uscite,budget];
+
+    // Create a new pie chart with the data
+    var chart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Grafico Uscite',
+          data: data,
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
         }
       }
-    }
-  });
-</script>
+    });
+    </script>
+
   
   </body>
 </html>

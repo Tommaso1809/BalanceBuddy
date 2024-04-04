@@ -118,12 +118,23 @@
     margin-bottom: 1em;
   }
 
-  .chart-resize {
+  #pie-chart{
     max-width: 100%;
-    max-height: 40%;
+    max-height: 26%;
    align-items: center;
    justify-content: center;
    display: flex;
+   margin-top: 2rem;
+
+  }
+
+  #pie-chart_1{
+    max-width: 100%;
+    max-height: 26%;
+   align-items: center;
+   justify-content: center;
+   display: flex;
+   margin-top: 2rem;
 
   }
   .hide {

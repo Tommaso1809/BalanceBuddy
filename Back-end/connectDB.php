@@ -11,5 +11,4 @@
         echo "Errore nella connessione al Database";
     }
 
-
 ?>
