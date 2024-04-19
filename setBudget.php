@@ -18,7 +18,7 @@
 
     if($result){
 
-        header("Location:../Front-end/home.php");
+        header("Location:home.php");
     }
 
 

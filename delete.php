@@ -70,7 +70,7 @@
         $result=mysqli_query($connect,$sql);
 
         
-        header('Location:..\Front-end\home.php');
+        header('Location:home.php');
     
 		 mysqli_close($connect);
 ?>

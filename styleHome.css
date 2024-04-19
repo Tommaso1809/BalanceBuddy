@@ -5,6 +5,12 @@
     font-family: "Poppins", sans-serif;
   }
 
+  .flex{
+  		display:flex;
+        align-items:center;
+        justify-content:center;
+  }
+
   body {
     background-color: #f7f9fd;
   }
@@ -118,25 +124,30 @@
     margin-bottom: 1em;
   }
 
-  #pie-chart{
+  /*#pie-chart{
     max-width: 100%;
-    max-height: 26%;
+    max-height: 40%;
    align-items: center;
    justify-content: center;
    display: flex;
    margin-top: 2rem;
 
-  }
+  }*/
+  
+ /*.chart-resize{
+  max-width: 100%;
+    max-height: 40%;
+ }*/
 
-  #pie-chart_1{
+  /*#pie-chart_1{
     max-width: 100%;
-    max-height: 26%;
+    max-height: 40%;
    align-items: center;
    justify-content: center;
    display: flex;
    margin-top: 2rem;
 
-  }
+  }*/
   .hide {
     display: none;
   }
@@ -163,3 +174,17 @@
       gap: 1em;
     }
   }
+  
+ @media only screen and (max-width:800px) {
+
+  
+}
+@media only screen and (max-width:500px) {
+  /* For mobile phones: */
+  .size{
+  	width:50%:
+    height:30%;
+  }
+  
+  
+}

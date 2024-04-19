@@ -90,7 +90,7 @@
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-    header("Location:../Front-end/home.php");
+    header("Location:home.php");
 	mysqli_close($connect);
 
 ?>
